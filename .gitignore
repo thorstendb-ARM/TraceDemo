@@ -18,7 +18,6 @@ compile_commands.json
 /.cmsis/*.dbgconf
 /.cmsis/*.dbgconf.base@*
 /.vscode/cmsis.json
-/.vscode/settings.json
 /.vscode/launch.json
 /.vscode/tasks.json
 .DS_Store

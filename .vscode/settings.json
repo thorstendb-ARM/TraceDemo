@@ -1,0 +1,4 @@
+{
+    "vscode-cmsis-debugger.openCapturedTraceAfterDecode": false,
+    "debug.hideSlowPreLaunchWarning": true
+}
