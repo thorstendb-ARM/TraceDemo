@@ -1,0 +1,4 @@
+interface:
+  display_name: "CMSIS Trace Memory Corruption"
+  short_description: "Investigate trace-observable Cortex-M runtime failures"
+  default_prompt: "Use CMSIS SWO trace to capture, decode, and correlate the runtime failure with source."
