@@ -111,7 +111,7 @@
     <text x="1187" y="601" font-size="21">allows a 9th write</text>
     <text x="1020" y="642" font-family="'Courier New', Courier, monospace" font-size="26" font-weight="700">arrWorker1[8] = 8</text>
     <text x="1020" y="674" font-size="21">Same address as varWorker2.</text>
-    <text x="1020" y="704" font-size="19" fill="#be3324">The array ends one word earlier.</text>
+    <text x="1020" y="704" font-size="19" fill="#be3324">Last valid element: arrWorker1[7].</text>
     <text x="1020" y="738" font-size="21" font-family="'Courier New', Courier, monospace" font-weight="700" fill="#be3324">Writing PC: 0x080002A4</text>
     <path d="M 990 658 H 946" fill="none" stroke="#be3324" stroke-width="4"/>
     <path d="M 946 650 L 926 658 L 946 666 Z" fill="#be3324"/>

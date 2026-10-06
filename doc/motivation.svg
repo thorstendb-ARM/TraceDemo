@@ -84,10 +84,10 @@
     <rect x="990" y="204" width="534" height="139" rx="14" fill="#f6f8fb"/>
     <text x="1008" y="231" font-size="22" font-weight="700">Concurrent threads</text>
     <text x="1008" y="255" font-size="17" fill="#557187">Interleaved on one core · schematic excerpt</text>
-    <text x="1008" y="283" font-size="18" font-weight="700" fill="#be3324">worker1</text>
+    <text x="1008" y="283" font-size="18" font-weight="700" fill="#205787">worker1</text>
     <text x="1008" y="312" font-size="18" font-weight="700" fill="#205787">worker2</text>
     <path d="M 1126 277 H 1472 M 1126 306 H 1472" fill="none" stroke="#c5d2de" stroke-width="2"/>
-    <g fill="#be3324">
+    <g fill="#205787">
       <rect x="1140" y="269" width="16" height="16" rx="3"/>
       <rect x="1240" y="269" width="16" height="16" rx="3"/>
       <rect x="1340" y="269" width="16" height="16" rx="3"/>
@@ -109,11 +109,11 @@
     <text x="1020" y="480" font-size="29" font-family="'Courier New', Courier, monospace" fill="#205787">10 → 20 → 30 → …</text>
 
     <!-- Buffer writer. -->
-    <rect x="990" y="530" width="534" height="225" rx="16" fill="#fff7f5" stroke="#f1b5ab" stroke-width="2"/>
+    <rect x="990" y="530" width="534" height="225" rx="16" fill="#e3effc" stroke="#c4d9ec" stroke-width="2"/>
     <text x="1020" y="562" font-size="24" font-weight="700" fill="#205787">worker1</text>
     <text x="1020" y="601" font-size="24" fill="#000000">writes data to buffer</text>
 
-    <!-- Trace takeaway: identify the store's origin, not merely the wrong value. -->
+    <!-- Trace configuration for investigating the unexpected value. -->
     <rect x="76" y="787" width="1448" height="73" rx="14" fill="#183247"/>
     <text x="102" y="812" font-size="17" font-weight="700" fill="#9ec8ee">Trace config: varWorker2</text>
 
