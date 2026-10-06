@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
   <title id="title">Array overrun into the next variable</title>
-  <desc id="description">Eight adjacent 32-bit arrWorker1 elements occupy addresses 0x200000B0 through 0x200000CC. The separate variable varWorker2 immediately follows at 0x200000D0. The incorrect loop condition i less than or equal to 8 causes worker1 to write 8 through arrWorker1[8] into varWorker2. A data trace records both the value and the writing program counter.</desc>
+  <desc id="description">Eight adjacent 32-bit arrWorker1 elements occupy addresses 0x200000B0 through 0x200000CC. The separate variable varWorker2 immediately follows at 0x200000D0. Two concurrent threads interleave their writes on one CPU core, sleeping for 100 milliseconds after each write. A schematic timeline shows a short excerpt of their overlapping lifetimes, not their completion times. The incorrect loop condition i less than or equal to 8 causes worker1 to write 8 through arrWorker1[8] into varWorker2. A data trace records both the value and the writing program counter.</desc>
 
   <!-- Basic SVG shapes and system fonts keep the graphic editable and portable. -->
   <rect width="1600" height="900" fill="#ffffff"/>
 
   <g font-family="Arial, Helvetica, sans-serif" fill="#183247">
-    <text x="76" y="57" font-size="18" font-weight="700" letter-spacing="2.4" fill="#557187">RTX5 DATA TRACE DEMO</text>
+    <text x="76" y="57" font-size="18" font-weight="700" letter-spacing="2.4" fill="#557187">DATA TRACE DEMO</text>
     <text x="76" y="112" font-size="44" font-weight="700">One extra array write corrupts the next variable</text>
     <text x="76" y="153" font-size="25" fill="#557187">A transient overwrite, exposed by data trace.</text>
     <text x="76" y="181" font-size="20" fill="#557187">Valid and invalid writes share one address. Data trace records each value and writing PC without halting execution.</text>
@@ -74,22 +74,45 @@
     <text x="120" y="720" font-size="21" fill="#557187">8 array elements × 4 bytes = 32 bytes</text>
     <text x="579" y="720" font-size="21" fill="#557187">Valid array indices: 0–7</text>
 
+    <!-- Concurrent lifetimes, with non-overlapping execution on a single core.
+         This is an unscaled excerpt, not a complete scheduling trace. -->
+    <rect x="990" y="204" width="534" height="139" rx="14" fill="#f6f8fb"/>
+    <text x="1008" y="231" font-size="22" font-weight="700">Concurrent threads</text>
+    <text x="1008" y="255" font-size="17" fill="#557187">Interleaved on one core · schematic excerpt</text>
+    <text x="1008" y="283" font-size="18" font-weight="700" fill="#be3324">worker1</text>
+    <text x="1008" y="312" font-size="18" font-weight="700" fill="#205787">worker2</text>
+    <path d="M 1126 277 H 1472 M 1126 306 H 1472" fill="none" stroke="#c5d2de" stroke-width="2"/>
+    <g fill="#be3324">
+      <rect x="1140" y="269" width="16" height="16" rx="3"/>
+      <rect x="1240" y="269" width="16" height="16" rx="3"/>
+      <rect x="1340" y="269" width="16" height="16" rx="3"/>
+    </g>
+    <g fill="#d8a44c">
+      <rect x="1164" y="298" width="16" height="16" rx="3"/>
+      <rect x="1264" y="298" width="16" height="16" rx="3"/>
+      <rect x="1364" y="298" width="16" height="16" rx="3"/>
+    </g>
+    <text x="1484" y="283" font-size="20" fill="#557187">…</text>
+    <text x="1484" y="312" font-size="20" fill="#557187">…</text>
+    <text x="1008" y="334" font-size="15" fill="#557187">Each write is followed by a 100 ms sleep</text>
+    <text x="1453" y="334" font-size="15" fill="#557187">time →</text>
+
     <!-- Legitimate writer. -->
-    <rect x="990" y="213" width="534" height="194" rx="16" fill="#fff0dd" stroke="#c4d9ec" stroke-width="2"/>
-    <text x="1020" y="254" font-size="25" font-weight="700" fill="#205787">worker2 · expected writes</text>
-    <text x="1020" y="309" font-size="33" font-family="'Courier New', Courier, monospace" fill="#205787">10 → 20 → … → 200</text>
-    <text x="1020" y="353" font-size="23">Writes to varWorker2 every 100 ms.</text>
-    <text x="1020" y="385" font-size="22" font-family="'Courier New', Courier, monospace" font-weight="700" fill="#205787">Writing PC: 0x08000300</text>
+    <rect x="990" y="360" width="534" height="150" rx="16" fill="#fff0dd" stroke="#c4d9ec" stroke-width="2"/>
+    <text x="1020" y="393" font-size="24" font-weight="700" fill="#205787">worker2 · expected writes</text>
+    <text x="1020" y="433" font-size="29" font-family="'Courier New', Courier, monospace" fill="#205787">10 → 20 → … → 200</text>
+    <text x="1020" y="467" font-size="21">Writes to varWorker2 every 100 ms.</text>
+    <text x="1020" y="494" font-size="21" font-family="'Courier New', Courier, monospace" font-weight="700" fill="#205787">Writing PC: 0x08000300</text>
 
     <!-- Faulty writer. The arrow points at the adjacent variable's highlighted row. -->
-    <rect x="990" y="443" width="534" height="295" rx="16" fill="#fff7f5" stroke="#f1b5ab" stroke-width="2"/>
-    <text x="1020" y="487" font-size="25" font-weight="700" fill="#be3324">worker1 · out-of-bounds write</text>
-    <text x="1020" y="537" font-family="'Courier New', Courier, monospace" font-size="31" font-weight="700" fill="#be3324">i &lt;= 8</text>
-    <text x="1187" y="537" font-size="23">allows a 9th write</text>
-    <text x="1020" y="593" font-family="'Courier New', Courier, monospace" font-size="28" font-weight="700">arrWorker1[8] = 8</text>
-    <text x="1020" y="634" font-size="23">Same address as varWorker2.</text>
-    <text x="1020" y="678" font-size="21" fill="#be3324">The array ends one word earlier.</text>
-    <text x="1020" y="711" font-size="22" font-family="'Courier New', Courier, monospace" font-weight="700" fill="#be3324">Writing PC: 0x080002A4</text>
+    <rect x="990" y="530" width="534" height="225" rx="16" fill="#fff7f5" stroke="#f1b5ab" stroke-width="2"/>
+    <text x="1020" y="562" font-size="24" font-weight="700" fill="#be3324">worker1 · out-of-bounds write</text>
+    <text x="1020" y="601" font-family="'Courier New', Courier, monospace" font-size="29" font-weight="700" fill="#be3324">i &lt;= 8</text>
+    <text x="1187" y="601" font-size="21">allows a 9th write</text>
+    <text x="1020" y="642" font-family="'Courier New', Courier, monospace" font-size="26" font-weight="700">arrWorker1[8] = 8</text>
+    <text x="1020" y="674" font-size="21">Same address as varWorker2.</text>
+    <text x="1020" y="704" font-size="19" fill="#be3324">The array ends one word earlier.</text>
+    <text x="1020" y="738" font-size="21" font-family="'Courier New', Courier, monospace" font-weight="700" fill="#be3324">Writing PC: 0x080002A4</text>
     <path d="M 990 658 H 946" fill="none" stroke="#be3324" stroke-width="4"/>
     <path d="M 946 650 L 926 658 L 946 666 Z" fill="#be3324"/>
 
@@ -98,6 +121,5 @@
     <text x="102" y="812" font-size="17" font-weight="700" fill="#9ec8ee">Trace config: varWorker2</text>
     <text x="102" y="846" font-size="27" fill="#ffffff">Data trace + PC identifies worker1 as the writer of the incorrect 8.</text>
 
-    <text x="76" y="887" font-size="17" fill="#657f91">Memory layout with the invalid write highlighted · 32-bit words · addresses from the verified Debug build</text>
   </g>
 </svg>
