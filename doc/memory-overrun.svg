@@ -10,9 +10,10 @@
     <text x="76" y="57" font-size="18" font-weight="700" letter-spacing="2.4" fill="#557187">RTX5 DATA TRACE DEMO</text>
     <text x="76" y="112" font-size="44" font-weight="700">One extra array write corrupts the next variable</text>
     <text x="76" y="153" font-size="25" fill="#557187">A transient overwrite, exposed by data trace.</text>
+    <text x="76" y="181" font-size="20" fill="#557187">Valid and invalid writes share one address. Data trace records each value and writing PC without halting execution.</text>
 
     <!-- RAM layout: every rectangle represents exactly four adjacent bytes. -->
-    <rect x="76" y="190" width="850" height="565" rx="20" fill="#f6f8fb"/>
+    <rect x="76" y="200" width="850" height="555" rx="20" fill="#f6f8fb"/>
     <text x="120" y="231" font-size="17" font-weight="700" letter-spacing="1.1" fill="#557187">RAM ADDRESS</text>
     <text x="451" y="231" text-anchor="middle" font-size="17" font-weight="700" letter-spacing="1.1" fill="#557187">VALUE</text>
     <text x="579" y="231" font-size="17" font-weight="700" letter-spacing="1.1" fill="#557187">VARIABLE</text>
@@ -74,20 +75,21 @@
     <text x="579" y="720" font-size="21" fill="#557187">Valid array indices: 0–7</text>
 
     <!-- Legitimate writer. -->
-    <rect x="990" y="213" width="534" height="194" rx="16" fill="#eef5fc" stroke="#c4d9ec" stroke-width="2"/>
+    <rect x="990" y="213" width="534" height="194" rx="16" fill="#fff0dd" stroke="#c4d9ec" stroke-width="2"/>
     <text x="1020" y="254" font-size="25" font-weight="700" fill="#205787">worker2 · expected writes</text>
     <text x="1020" y="309" font-size="33" font-family="'Courier New', Courier, monospace" fill="#205787">10 → 20 → … → 200</text>
     <text x="1020" y="353" font-size="23">Writes to varWorker2 every 100 ms.</text>
-    <text x="1020" y="384" font-size="20" fill="#557187">The local counter stays intact.</text>
+    <text x="1020" y="385" font-size="22" font-family="'Courier New', Courier, monospace" font-weight="700" fill="#205787">Writing PC: 0x08000300</text>
 
     <!-- Faulty writer. The arrow points at the adjacent variable's highlighted row. -->
-    <rect x="990" y="443" width="534" height="269" rx="16" fill="#fff7f5" stroke="#f1b5ab" stroke-width="2"/>
+    <rect x="990" y="443" width="534" height="295" rx="16" fill="#fff7f5" stroke="#f1b5ab" stroke-width="2"/>
     <text x="1020" y="487" font-size="25" font-weight="700" fill="#be3324">worker1 · out-of-bounds write</text>
     <text x="1020" y="537" font-family="'Courier New', Courier, monospace" font-size="31" font-weight="700" fill="#be3324">i &lt;= 8</text>
     <text x="1187" y="537" font-size="23">allows a 9th write</text>
     <text x="1020" y="593" font-family="'Courier New', Courier, monospace" font-size="28" font-weight="700">arrWorker1[8] = 8</text>
     <text x="1020" y="634" font-size="23">Same address as varWorker2.</text>
     <text x="1020" y="678" font-size="21" fill="#be3324">The array ends one word earlier.</text>
+    <text x="1020" y="711" font-size="22" font-family="'Courier New', Courier, monospace" font-weight="700" fill="#be3324">Writing PC: 0x080002A4</text>
     <path d="M 990 658 H 946" fill="none" stroke="#be3324" stroke-width="4"/>
     <path d="M 946 650 L 926 658 L 946 666 Z" fill="#be3324"/>
 
@@ -96,6 +98,6 @@
     <text x="102" y="812" font-size="17" font-weight="700" fill="#9ec8ee">Trace config: varWorker2</text>
     <text x="102" y="846" font-size="27" fill="#ffffff">Data trace + PC identifies worker1 as the writer of the incorrect 8.</text>
 
-    <text x="76" y="887" font-size="17" fill="#657f91">Snapshot immediately after the invalid store · 32-bit words · addresses from the verified Debug build</text>
+    <text x="76" y="887" font-size="17" fill="#657f91">Memory layout with the invalid write highlighted · 32-bit words · addresses from the verified Debug build</text>
   </g>
 </svg>
