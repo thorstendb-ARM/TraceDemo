@@ -28,11 +28,6 @@ solution:
             clock: 10000000
             gdbserver:
               - port: 45333
-            trace:
-              - swo-uart:
-                mode: file
-                input-clock: 4000000
-                output-clock: 1000000
 
   projects:
     - project: TraceDemo.cproject.yml
