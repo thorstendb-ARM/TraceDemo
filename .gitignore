@@ -10,9 +10,11 @@
 *.cbuild2cmake
 *.cprj
 compile_commands.json
+/.clangd
 **/RTE/_*/
 *.update@*
 /.cmsis/tools-environment.yml
+/.cmsis/TraceDemo+NUCLEO-L552ZE-Q.ctrace.yml
 /.vscode/cmsis.json
 /.vscode/settings.json
 /.vscode/launch.json
