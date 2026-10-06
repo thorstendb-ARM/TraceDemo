@@ -1,0 +1,34 @@
+{
+  "l5": {
+    "repository": "https://github.com/STMicroelectronics/cmsis-device-l5",
+    "tag": "v1.0.7",
+    "commit": "e237398c0cbae890f4659f74fe6b64cae339b6a0",
+    "license": "Apache-2.0",
+    "files": {
+      "LICENSE.md": {
+        "sha256": "44fd163ed2e04fe99f519f1093c2c39b21d9cc9371071de902ff0c2c8c3c57dc",
+        "bytes": 9753
+      },
+      "Include/stm32l5xx.h": {
+        "sha256": "74f588698fa94b6717e6d359d6757a9bae448af10fa6cab23cba64501603609e",
+        "bytes": 7396
+      },
+      "Include/system_stm32l5xx.h": {
+        "sha256": "e2b417ba1b4ebb01f687b8f649413db1b5c7d977ff8defee4c505d068a125b2c",
+        "bytes": 2706
+      },
+      "Source/Templates/system_stm32l5xx.c": {
+        "sha256": "2995fec63aa8a74220d64505f137f721f5fe1175dc2fcfbf657ead30025fad58",
+        "bytes": 13259
+      },
+      "Include/stm32l552xx.h": {
+        "sha256": "c2ac14f09cc63e53d9eed5605038b7590d753f12fa3ace8d2ab209582d120f25",
+        "bytes": 1515981
+      },
+      "Source/Templates/gcc/startup_stm32l552xx.s": {
+        "sha256": "a0089a509bcf4ef1fe631a08060e7336acffc3c2b380609ec99fca165fea865e",
+        "bytes": 15539
+      }
+    }
+  }
+}

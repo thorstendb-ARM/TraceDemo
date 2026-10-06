@@ -1,0 +1,33 @@
+project:
+  description: RTX5 array overrun demonstrated with data trace and writing PC
+  language-C: c11
+  output:
+    type:
+      - elf
+
+  define:
+    - STM32L552xx
+    - CMSIS_device_header: '"stm32l5xx.h"'
+    - USER_VECT_TAB_ADDRESS
+
+  add-path:
+    - ThirdParty/ST/cmsis-device-l5/Include
+
+  components:
+    - component: ARM::CMSIS:CORE
+    - component: ARM::CMSIS:OS Tick:SysTick
+    - component: ARM::CMSIS:RTOS2:Keil RTX5&Source
+
+  groups:
+    - group: Application
+      files:
+        - file: main.c
+    - group: CMSIS Device
+      files:
+        - file: ThirdParty/ST/cmsis-device-l5/Source/Templates/gcc/startup_stm32l552xx.s
+        - file: ThirdParty/ST/cmsis-device-l5/Source/Templates/system_stm32l5xx.c
+
+  linker:
+    - script: Board/gcc_linker_script.ld.src
+      regions: Board/regions.h
+      for-compiler: GCC

@@ -1,0 +1,38 @@
+solution:
+  created-for: CMSIS-Toolbox@2.15.0
+  compiler: GCC@14.3.1
+  cdefault:
+
+  packs:
+    - pack: ARM::CMSIS@6.3.0
+    - pack: ARM::CMSIS-RTX@5.9.0
+    - pack: Keil::STM32L5xx_DFP@2.0.0
+
+  build-types:
+    - type: Debug
+      debug: on
+      optimize: none
+
+  target-types:
+    - type: NUCLEO-L552ZE-Q
+      device: STMicroelectronics::STM32L552ZETxQ
+      processor:
+        trustzone: off
+      target-set:
+        - set:
+          images:
+            - project-context: TraceDemo.Debug
+          debugger:
+            name: ULINKplus@pyOCD
+            protocol: swd
+            clock: 10000000
+            gdbserver:
+              - port: 45333
+            trace:
+              - swo-uart:
+                mode: file
+                input-clock: 4000000
+                output-clock: 1000000
+
+  projects:
+    - project: TraceDemo.cproject.yml

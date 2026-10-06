@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "arm.cmsis-csolution",
+        "arm.vscode-cmsis-debugger",
+        "arm.environment-manager",
+        "llvm-vs-code-extensions.vscode-clangd"
+    ]
+}

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Array overrun into the next variable</title>
+  <desc id="description">Eight adjacent 32-bit arrWorker1 elements occupy addresses 0x200000B0 through 0x200000CC. The separate variable varWorker2 immediately follows at 0x200000D0. The incorrect loop condition i less than or equal to 8 causes worker1 to write 8 through arrWorker1[8] into varWorker2. A data trace records both the value and the writing program counter.</desc>
+
+  <!-- Basic SVG shapes and system fonts keep the graphic editable and portable. -->
+  <rect width="1600" height="900" fill="#ffffff"/>
+
+  <g font-family="Arial, Helvetica, sans-serif" fill="#183247">
+    <text x="76" y="57" font-size="18" font-weight="700" letter-spacing="2.4" fill="#557187">RTX5 DATA TRACE DEMO</text>
+    <text x="76" y="112" font-size="44" font-weight="700">One extra array write corrupts the next variable</text>
+    <text x="76" y="153" font-size="25" fill="#557187">A transient overwrite, exposed by data trace.</text>
+
+    <!-- RAM layout: every rectangle represents exactly four adjacent bytes. -->
+    <rect x="76" y="190" width="850" height="565" rx="20" fill="#f6f8fb"/>
+    <text x="120" y="231" font-size="17" font-weight="700" letter-spacing="1.1" fill="#557187">RAM ADDRESS</text>
+    <text x="451" y="231" text-anchor="middle" font-size="17" font-weight="700" letter-spacing="1.1" fill="#557187">VALUE</text>
+    <text x="579" y="231" font-size="17" font-weight="700" letter-spacing="1.1" fill="#557187">VARIABLE</text>
+
+    <!-- Addresses increase downward; there is no gap between the objects. -->
+    <path d="M 101 262 V 662" fill="none" stroke="#90a4b5" stroke-width="2"/>
+    <path d="M 96 655 L 101 667 L 106 655 Z" fill="#90a4b5"/>
+
+    <g font-family="'Courier New', Courier, monospace" font-size="21" fill="#557187" text-anchor="end">
+      <text x="326" y="282">0x200000B0</text>
+      <text x="326" y="330">0x200000B4</text>
+      <text x="326" y="378">0x200000B8</text>
+      <text x="326" y="426">0x200000BC</text>
+      <text x="326" y="474">0x200000C0</text>
+      <text x="326" y="522">0x200000C4</text>
+      <text x="326" y="570">0x200000C8</text>
+      <text x="326" y="618">0x200000CC</text>
+      <text x="326" y="666" font-weight="700" fill="#a44718">0x200000D0</text>
+    </g>
+
+    <g fill="#e3effc" stroke="#98bbdc" stroke-width="2">
+      <rect x="356" y="250" width="190" height="48"/>
+      <rect x="356" y="298" width="190" height="48"/>
+      <rect x="356" y="346" width="190" height="48"/>
+      <rect x="356" y="394" width="190" height="48"/>
+      <rect x="356" y="442" width="190" height="48"/>
+      <rect x="356" y="490" width="190" height="48"/>
+      <rect x="356" y="538" width="190" height="48"/>
+      <rect x="356" y="586" width="190" height="48"/>
+    </g>
+    <g font-family="'Courier New', Courier, monospace" font-size="27" text-anchor="middle" fill="#205787">
+      <text x="451" y="283">0</text>
+      <text x="451" y="331">1</text>
+      <text x="451" y="379">2</text>
+      <text x="451" y="427">3</text>
+      <text x="451" y="475">4</text>
+      <text x="451" y="523">5</text>
+      <text x="451" y="571">6</text>
+      <text x="451" y="619">7</text>
+    </g>
+    <g font-family="'Courier New', Courier, monospace" font-size="25">
+      <text x="579" y="282">arrWorker1[0]</text>
+      <text x="579" y="330">arrWorker1[1]</text>
+      <text x="579" y="378">arrWorker1[2]</text>
+      <text x="579" y="426">arrWorker1[3]</text>
+      <text x="579" y="474">arrWorker1[4]</text>
+      <text x="579" y="522">arrWorker1[5]</text>
+      <text x="579" y="570">arrWorker1[6]</text>
+      <text x="579" y="618">arrWorker1[7]</text>
+    </g>
+
+    <!-- Highlight the victim's entire row; the memory cell still has the same size. -->
+    <rect x="547" y="634" width="379" height="48" fill="#fff0dd"/>
+    <rect x="356" y="634" width="190" height="48" fill="#fff0dd" stroke="#d34a36" stroke-width="3"/>
+    <text x="451" y="668" text-anchor="middle" font-family="'Courier New', Courier, monospace" font-size="32" font-weight="700" fill="#be3324">8</text>
+    <text x="579" y="667" font-family="'Courier New', Courier, monospace" font-size="28" font-weight="700" fill="#a44718">varWorker2</text>
+
+    <text x="120" y="720" font-size="21" fill="#557187">8 array elements × 4 bytes = 32 bytes</text>
+    <text x="579" y="720" font-size="21" fill="#557187">Valid array indices: 0–7</text>
+
+    <!-- Legitimate writer. -->
+    <rect x="990" y="213" width="534" height="194" rx="16" fill="#eef5fc" stroke="#c4d9ec" stroke-width="2"/>
+    <text x="1020" y="254" font-size="25" font-weight="700" fill="#205787">worker2 · expected writes</text>
+    <text x="1020" y="309" font-size="33" font-family="'Courier New', Courier, monospace" fill="#205787">10 → 20 → … → 200</text>
+    <text x="1020" y="353" font-size="23">Writes to varWorker2 every 100 ms.</text>
+    <text x="1020" y="384" font-size="20" fill="#557187">The local counter stays intact.</text>
+
+    <!-- Faulty writer. The arrow points at the adjacent variable's highlighted row. -->
+    <rect x="990" y="443" width="534" height="269" rx="16" fill="#fff7f5" stroke="#f1b5ab" stroke-width="2"/>
+    <text x="1020" y="487" font-size="25" font-weight="700" fill="#be3324">worker1 · out-of-bounds write</text>
+    <text x="1020" y="537" font-family="'Courier New', Courier, monospace" font-size="31" font-weight="700" fill="#be3324">i &lt;= 8</text>
+    <text x="1187" y="537" font-size="23">allows a 9th write</text>
+    <text x="1020" y="593" font-family="'Courier New', Courier, monospace" font-size="28" font-weight="700">arrWorker1[8] = 8</text>
+    <text x="1020" y="634" font-size="23">Same address as varWorker2.</text>
+    <text x="1020" y="678" font-size="21" fill="#be3324">The array ends one word earlier.</text>
+    <path d="M 990 658 H 946" fill="none" stroke="#be3324" stroke-width="4"/>
+    <path d="M 946 650 L 926 658 L 946 666 Z" fill="#be3324"/>
+
+    <!-- Trace takeaway: identify the store's origin, not merely the wrong value. -->
+    <rect x="76" y="787" width="1448" height="73" rx="14" fill="#183247"/>
+    <text x="102" y="812" font-size="17" font-weight="700" fill="#9ec8ee">Trace config: varWorker2</text>
+    <text x="102" y="846" font-size="27" fill="#ffffff">Data trace + PC identifies worker1 as the writer of the incorrect 8.</text>
+
+    <text x="76" y="887" font-size="17" fill="#657f91">Snapshot immediately after the invalid store · 32-bit words · addresses from the verified Debug build</text>
+  </g>
+</svg>

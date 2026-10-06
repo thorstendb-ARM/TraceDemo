@@ -1,0 +1,4 @@
+CompileFlags:
+  CompilationDatabase: out/TraceDemo/NUCLEO-L552ZE-Q/Debug
+  # GCC accepts this flag; clangd does not. Firmware build flags are unchanged.
+  Remove: [-masm-syntax-unified]
