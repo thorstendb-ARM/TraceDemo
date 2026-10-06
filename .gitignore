@@ -15,6 +15,8 @@ compile_commands.json
 *.update@*
 /.cmsis/tools-environment.yml
 /.cmsis/TraceDemo+NUCLEO-L552ZE-Q.ctrace.yml
+/.cmsis/*.dbgconf
+/.cmsis/*.dbgconf.base@*
 /.vscode/cmsis.json
 /.vscode/settings.json
 /.vscode/launch.json
